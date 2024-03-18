@@ -5,11 +5,11 @@
 #include <tlm.h>
 #include <systemc.h>
 
-template<unsigned int SIZE = 1024>
+template<unsigned int SIZE = 512>
 class memory : sc_module, tlm::tlm_fw_transport_if<>
 {
     private:
-    unsigned char mem[1024];
+    unsigned char mem[512];
 
     public:
     tlm::tlm_target_socket<> tSocket;
@@ -21,7 +21,7 @@ class memory : sc_module, tlm::tlm_fw_transport_if<>
 
     void b_transport(tlm::tlm_generic_payload &trans, sc_time &delay)
     {
-        if (trans.get_address() >= 1024)
+        if (trans.get_address() >= 512)
         {
              trans.set_response_status( tlm::TLM_ADDRESS_ERROR_RESPONSE );
              return;
